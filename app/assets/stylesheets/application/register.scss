@@ -1,0 +1,14 @@
+.new_user {
+  @include span-columns(4 of 12);
+  @include shift(4 of 12);
+  margin-top: 100px;
+
+  input {
+    background-color: $white;
+
+    &[type=submit] {
+      color: $green;
+    }
+  }
+
+}

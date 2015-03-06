@@ -1,0 +1,7 @@
+<% content_for :title, "Login for Basewise" %>
+
+<%= simple_form_for @user, url: login_path do |f| %>
+    <%= f.input :email, placeholder: "Email Address", error_prefix: "Email" %>
+    <%= f.input :password, placeholder: "Password", error_prefix: "Password" %>
+    <%= f.submit %>
+<% end %>

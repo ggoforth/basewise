@@ -54,11 +54,11 @@ class SessionControllerTest < ActionController::TestCase
     end
   end
 
-  context "DELETE /destroy" do
+  context "DELETE /foo" do
     context "when the user is not logged in" do
 
       should "redirect to signin" do
-        delete :destroy
+        delete :foo
         assert_redirected_to(signin_path)
       end
     end
@@ -72,17 +72,17 @@ class SessionControllerTest < ActionController::TestCase
       end
 
       should "remove the session variable" do
-        delete :destroy
+        delete :foo
         assert_nil session[:user_id]
       end
 
       should "set the current user to nil" do
-        delete :destroy
+        delete :foo
         assert_nil @controller.current_user
       end
 
       should "redirect to sign in" do
-        delete :destroy
+        delete :foo
         assert_redirected_to signin_path
       end
     end

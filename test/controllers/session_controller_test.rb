@@ -25,7 +25,7 @@ class SessionControllerTest < ActionController::TestCase
 
     context "and the user is not found" do
       should "render the new template" do
-        post :create, {email: 'foo@bar.com'}
+        post :create, user: {email: 'foo@bar.com'}
         assert_template :new
       end
     end
@@ -33,14 +33,14 @@ class SessionControllerTest < ActionController::TestCase
     context "and the user is found" do
       context "but the password is wrong" do
         should "render the new template" do
-          post :create, {email: @email, password: 'foo'}
+          post :create, user: {email: @email, password: 'foo'}
           assert_template :new
         end
       end
 
       context "and the password is correct" do
         setup do
-          post :create, {email: @email, password: @pass}
+          post :create, user: {email: @email, password: @pass}
         end
 
         should "log the user in" do
@@ -55,12 +55,36 @@ class SessionControllerTest < ActionController::TestCase
   end
 
   context "DELETE /destroy" do
-    should "log the user out" do
+    context "when the user is not logged in" do
 
+      should "redirect to signin" do
+        delete :destroy
+        assert_redirected_to(signin_path)
+      end
     end
 
-    should "redirect the user to the login page" do
+    context "when the user is logged in" do
+      setup do
+        @pass = 'foobar$23'
+        @email = 'greg.goforth@gmail.com'
+        @user = Fabricate(:user, email: @email, password: @pass)
+        login_user(@user)
+      end
 
+      should "remove the session variable" do
+        delete :destroy
+        assert_nil session[:user_id]
+      end
+
+      should "set the current user to nil" do
+        delete :destroy
+        assert_nil @controller.current_user
+      end
+
+      should "redirect to sign in" do
+        delete :destroy
+        assert_redirected_to signin_path
+      end
     end
   end
 end

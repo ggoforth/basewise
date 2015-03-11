@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
   has_secure_password validations: false
 
   def self.authenticate(params = {})
-    return false unless user = User.find_by_email(params[:email])
+    user = User.find_by_email(params[:email])
+    return false unless user
     user.authenticate(params[:password])
   end
 

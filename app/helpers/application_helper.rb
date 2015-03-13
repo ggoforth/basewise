@@ -1,7 +1,7 @@
 module ApplicationHelper
   def brand_tag(user)
     return "Basewise" unless user
-    "Basewise: #{user_name(user)}"
+    "Basewise: #{link_to user_name(user), edit_user_path(user)}".html_safe
   end
 
   def user_name(user)

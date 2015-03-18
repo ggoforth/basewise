@@ -12,4 +12,7 @@ Rails.application.routes.draw do
 
   # Users
   resources :users, only: [:edit, :update, :destroy]
+
+  #todos
+  resources :todo_lists, only: [:create, :update, :destroy, :show]
 end

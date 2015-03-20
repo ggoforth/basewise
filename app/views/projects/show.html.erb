@@ -1,5 +1,9 @@
 <% content_for :title, @project.title %>
 
+<script>
+    context.project_id = <%= @project.id %>;
+</script>
+
 <div class="project">
     <span class="title">
         <%= @project.title %>
@@ -7,17 +11,27 @@
     <span class="description">
         <%= @project.description %>
     </span>
+  <br/><br/>
+  <div class="todo-lists" data-component="todo-list">
+    <h3 class="inline">Todo Lists</h3>&nbsp;&nbsp;
+    <%= button_tag "New Todo List", data: {action: 'new-todo'}, class: "small inline" %>
 
-    <div class="todo-lists" data-component="todo-list">
-      <h3>Todo Lists</h3>
-      <%= button_tag "New Todo List", data: {action: 'new-todo'} %>
+    <div class="new-todo hide" data-container="new-todo">
+      <input type="text" name="title" id="" placeholder="Enter a title" class="slim" data-attribute="title"/>
+      <input type="text" name="description" id="" placeholder="Enter a description" class="slim" data-attribute="description"/>
 
-      <div class="new-todo hide" data-container="new-todo">
-        <input type="text" name="title" id="" placeholder="Enter a title" />
-        <input type="text" name="description" id="" placeholder="Enter a description" />
-        <%= button_tag "Create Todo", data: {action: "create-todo"} %>
-        <%= button_tag "Cancel", data: {action: "cancel"}, class: "red" %>
+      <div data-attribute="errors">
+
       </div>
+
+      <%= button_tag "Create Todo", data: {action: "create-todo"}, class: "small" %>
+      <%= button_tag "Cancel", data: {action: "cancel"}, class: "red small" %>
     </div>
 
+    <br/><br/>
+
+    <div data-container='todo-lists' class="todo-lists">
+      <%= render "todo_lists/list", project: @project %>
+    </div>
+  </div>
 </div>

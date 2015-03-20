@@ -83,6 +83,28 @@ div.project {
   padding: 15px;
 }
 
+
+ul.todo-list-list {
+
+  li {
+    margin-bottom: 40px;
+    h3 {
+      color: $blue;
+      margin-bottom: 0;
+
+    }
+
+    a.delete-todo-list {
+      font-size: .5em;
+    }
+
+    h4 {
+      color: $black;
+      font-size: .8em;
+      font-weight: normal;
+    }
+  }
+}
 .sub-nav {
   @include clearfix;
   background-color: $base-background-color;
